@@ -6,24 +6,16 @@ const { connectToServer } = require('./utils/dbConnect');
 const projectsRoutes = require("./routes/v1/projects.route");
 const slidersRoutes = require("./routes/v1/sliders.route");
 const blogsRoutes = require('./routes/v1/blogs.route');
-
-
+const instagramRoutes = require('./routes/v1/instagrams.route');
+const userRouter = require('./routes/v1/users.route');
 
 const app = express();
 const port = 5000;
-
-
 
 app.use(cors());
 app.use(express.json())
 app.use(fileUpload())
 
-// const uri = "mongodb+srv://doctoral:doctoral123@cluster0.fbebj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
-// new 
-// const uri = "mongodb+srv://nj_abaacorp2022:248Ev3rBYUemym4L@cluster0.fbebj.mongodb.net/?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 connectToServer((err) => {
     if (!err) {
       app.listen(port, () => {
@@ -34,9 +26,16 @@ connectToServer((err) => {
     }
   });
 
-  app.use("/projects", projectsRoutes);
+  app.get('/', (req, res) => {
+    res.send('Running server')
+  });
+  app.use("/project", projectsRoutes);
   app.use("/slider", slidersRoutes);
-  app.use("/add_blog", blogsRoutes);
+  app.use("/blog", blogsRoutes);
+  app.use("/instagram", instagramRoutes);
+  app.use("/user", userRouter);
+
+
 
 
 
@@ -45,11 +44,11 @@ connectToServer((err) => {
 //         await client.connect();
 //         //----------all collection ------------
 //         const database = client.db("njabaacorp");
-//         const blogsCollection = database.collection("blog");
-//         const instagramCollection = database.collection('instagram');
-//         const projectCollection = database.collection('project')
-//         const sliderCollection = database.collection('slider')
-//         const userCollection = database.collection('users')
+//        . const blogsCollection = database.collection("blog");
+//        . const instagramCollection = database.collection('instagram');
+//        . const projectCollection = database.collection('project')
+//        . const sliderCollection = database.collection('slider')
+//        . const userCollection = database.collection('users')
 //         console.log('connected db')
 
 //         //------------------ get api----------------
@@ -370,12 +369,8 @@ connectToServer((err) => {
 // run().catch(console.dir);
 
 
-app.get('/', (req, res) => {
-    res.send('Running server')
-});
-
 app.all("*", (req, res) => {
-  res.send("NO route found.");
+  res.send("No route found.");
 });
 
 process.on("unhandledRejection", (error) => {
