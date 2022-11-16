@@ -15,3 +15,44 @@ module.exports.getAllUsers= async (req, res) => {
         res.status(400).json({ success: false, message:error });
     }
   };
+
+
+  module.exports.postSingleUser= async (req, res) => {
+    try {
+      const db = getDb();
+            const user = req.body;
+            const result = await db.collection("users").insertOne(user)
+      res.status(200).json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, message:error });
+    }
+  };
+
+
+  module.exports.updateSingleUser= async (req, res) => {
+    try {
+      const db = getDb();
+            const user = req.body;
+            const filter = { email: user.email }
+            const options = { upsert: true }
+            const updateUser = { $set: user }
+            const result = await db.collection("users").updateOne(filter, updateUser, options);
+      res.status(200).json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, message:error });
+    }
+  };
+
+
+  module.exports.updateAdmin= async (req, res) => {
+    try {
+      const db = getDb();
+            const user = req.body;
+            const filter = { email: user.email }
+            const updateUser = { $set: { role: 'admin' } }
+            const result = await db.collection("users").updateOne(filter, updateUser);
+      res.status(200).json({ success: true, data: result });
+    } catch (error) {
+        res.status(400).json({ success: false, message:error });
+    }
+  };

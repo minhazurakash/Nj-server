@@ -6,13 +6,15 @@ const instagramRouter = express.Router();
 instagramRouter
   .route("/")
   .get(instagramsControllers.getAllInstagrams)
+  .post(instagramsControllers.postSingleInstagram)
+
   
 
 
-// instagramRouter
-//   .route("/:id")
-//   .get(viewCount, limiter, toolsControllers.getToolDetail)
-//   .patch(toolsControllers.updateTool)
-//   .delete(toolsControllers.deleteTool);
+instagramRouter
+  .route("/:id")
+  .get(instagramsControllers.getSingleInstagram)
+  .put(instagramsControllers.updateSingleInstagram)
+  .delete(instagramsControllers.deleteSingleInstagram);
 
 module.exports = instagramRouter;

@@ -6,13 +6,15 @@ const sliderRouter = express.Router();
 sliderRouter
   .route("/")
   .get(slidersControllers.getAllSliders)
+  .post(slidersControllers.postSingleSlider)
+
   
 
 
-// sliderRouter
-//   .route("/:id")
-//   .get(viewCount, limiter, toolsControllers.getToolDetail)
-//   .patch(toolsControllers.updateTool)
-//   .delete(toolsControllers.deleteTool);
+sliderRouter
+  .route("/:id")
+  .get(slidersControllers.getSingleSlider)
+  .put(slidersControllers.updateSingleSlider)
+  .delete(slidersControllers.deleteSingleSlider);
 
 module.exports = sliderRouter;

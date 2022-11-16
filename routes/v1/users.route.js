@@ -6,13 +6,16 @@ const userRouter = express.Router();
 userRouter
   .route("/")
   .get(usersControllers.getAllUsers)
+  .post(usersControllers.postSingleUser)
+  .put(usersControllers.updateSingleUser)
+
+
   
 
 
-// userRouter
-//   .route("/:id")
-//   .get(viewCount, limiter, toolsControllers.getToolDetail)
-//   .patch(toolsControllers.updateTool)
-//   .delete(toolsControllers.deleteTool);
+userRouter
+  .route("/admin")
+  // .put(usersControllers.updateAdmin)
+
 
 module.exports = userRouter;
