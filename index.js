@@ -4,6 +4,8 @@ const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const { connectToServer } = require('./utils/dbConnect');
 const projectsRoutes = require("./routes/v1/projects.route");
+const slidersRoutes = require("./routes/v1/sliders.route");
+const blogsRoutes = require('./routes/v1/blogs.route');
 
 
 
@@ -33,6 +35,9 @@ connectToServer((err) => {
   });
 
   app.use("/projects", projectsRoutes);
+  app.use("/slider", slidersRoutes);
+  app.use("/add_blog", blogsRoutes);
+
 
 
 // async function run() {
@@ -369,10 +374,13 @@ app.get('/', (req, res) => {
     res.send('Running server')
 });
 
-app.get('/project', async (req, res) => {
+app.all("*", (req, res) => {
+  res.send("NO route found.");
+});
 
-                const projects = projectCollection.find({});
-                const project = await projects.toArray();
-                res.send(project)
-    
-            })
+process.on("unhandledRejection", (error) => {
+  console.log(error.name, error.message);
+  app.close(() => {
+    process.exit(1);
+  });
+});
