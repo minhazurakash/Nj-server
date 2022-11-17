@@ -34,13 +34,9 @@ module.exports.getAllBlogs = async (req, res) => {
   module.exports.postSingleBlog = async (req, res) => {
     try {
       const db = getDb();
-            const { title, dec, date } = req.body;
-            const pic = req.files.img;
-            const picData = pic.data;
-            const encodePic = picData.toString('base64');
-            const imgBuffer = Buffer.from(encodePic, 'base64')
-            const newBlog = { title, dec, date, img: imgBuffer }
-            const result = await db.collection("blog").insertOne(newBlog);  
+            const blog = req.body;
+            console.log(blog);
+            const result = await db.collection("blog").insertOne(blog);  
       res.status(200).json({ success: true, data: result });
     } catch (error) {
         res.status(400).json({ success: false, message:error });

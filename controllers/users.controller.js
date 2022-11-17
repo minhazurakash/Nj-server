@@ -17,6 +17,7 @@ module.exports.getAllUsers= async (req, res) => {
   };
 
 
+
   module.exports.postSingleUser= async (req, res) => {
     try {
       const db = getDb();

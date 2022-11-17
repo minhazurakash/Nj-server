@@ -35,13 +35,8 @@ module.exports.getAllInstagrams= async (req, res) => {
   module.exports.postSingleInstagram = async (req, res) => {
     try {
       const db = getDb();
-            const { title, link } = req.body;
-            const pic = req.files.img;
-            const picData = pic.data;
-            const encodePic = picData.toString('base64');
-            const imgBuffer = Buffer.from(encodePic, 'base64')
-            const newInstagramCard = { title, link, img: imgBuffer }
-            const result = await db.collection("instagram").insertOne(newInstagramCard);
+            const instagram = req.body;
+            const result = await db.collection("instagram").insertOne(instagram);
       res.status(200).json({ success: true, data: result });
     } catch (error) {
         res.status(400).json({ success: false, message:error });

@@ -35,13 +35,8 @@ module.exports.getAllSliders = async (req, res) => {
   module.exports.postSingleSlider= async (req, res) => {
     try {
       const db = getDb();
-            const { title, dec } = req.body;
-            const pic = req.files.img;
-            const picData = pic.data;
-            const encodePic = picData.toString('base64');
-            const imgBuffer = Buffer.from(encodePic, 'base64')
-            const newSlider = { title, dec, img: imgBuffer }
-            const result = await db.collection("slider").insertOne(newSlider);
+            const slider = req.body;
+            const result = await db.collection("slider").insertOne(slider);
       res.status(200).json({ success: true, data: result });
     } catch (error) {
         res.status(400).json({ success: false, message:error });
