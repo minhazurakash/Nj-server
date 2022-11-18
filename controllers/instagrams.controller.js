@@ -51,15 +51,9 @@ module.exports.getAllInstagrams= async (req, res) => {
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true }
 
-            const { title, link } = req.body;
-            const pic = req.files.img;
-            const picData = pic.data;
-            const encodePic = picData.toString('base64');
-            const imgBuffer = Buffer.from(encodePic, 'base64')
-
-            const newInstagramCard = { title, link, img: imgBuffer }
+            const instagram = req.body;
             const updatedInstagram = {
-                $set: newInstagramCard
+                $set: instagram
             };
             const result = await db.collection("instagram").updateOne(filter, updatedInstagram, options);
       res.status(200).json({ success: true, data: result });

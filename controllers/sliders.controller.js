@@ -50,14 +50,9 @@ module.exports.getAllSliders = async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true }
-            const { title, dec } = req.body;
-            const pic = req.files.img;
-            const picData = pic.data;
-            const encodePic = picData.toString('base64');
-            const imgBuffer = Buffer.from(encodePic, 'base64')
-            const newSlider = { title, dec, img: imgBuffer }
+            const slider = req.body;
             const updatedSlider = {
-                $set: newSlider
+                $set: slider
             };
             const result = await db.collection("slider").updateOne(filter, updatedSlider, options);
       res.status(200).json({ success: true, data: result });

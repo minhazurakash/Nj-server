@@ -35,13 +35,8 @@ module.exports.getAllProjects = async (req, res) => {
   module.exports.postSingleProject= async (req, res) => {
     try {
       const db = getDb();
-      const { title, link } = req.body;
-            const pic = req.files.img;
-            const picData = pic.data;
-            const encodePic = picData.toString('base64');
-            const imgBuffer = Buffer.from(encodePic, 'base64')
-            const newProject = { title, link, img: imgBuffer }
-            const result = await db.collection("project").insertOne(newProject);
+        const project= req.body;
+        const result = await db.collection("project").insertOne(project);
 
       res.status(200).json({ success: true, data: result });
     } catch (error) {
@@ -57,15 +52,9 @@ module.exports.getAllProjects = async (req, res) => {
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true }
 
-            const { title, link } = req.body;
-            const pic = req.files.img;
-            const picData = pic.data;
-            const encodePic = picData.toString('base64');
-            const imgBuffer = Buffer.from(encodePic, 'base64')
-
-            const newProject = { title, link, img: imgBuffer }
+            const project = req.body;
             const updatedProject = {
-                $set: newProject
+                $set: project
             };
             const result = await db.collection("project").updateOne(filter, updatedProject, options);
 

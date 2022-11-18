@@ -50,14 +50,10 @@ module.exports.getAllBlogs = async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true }
-            const { title, dec, date } = req.body;
-            const pic = req.files.img;
-            const picData = pic.data;
-            const encodePic = picData.toString('base64');
-            const imgBuffer = Buffer.from(encodePic, 'base64')
-            const newBlog = { title, dec, date, img: imgBuffer }
+            const blog = req.body;
+            console.log(blog);
             const updatedBlog = {
-                $set: newBlog
+                $set: blog
             };
             const result = await db.collection("blog").updateOne(filter, updatedBlog, options);
       res.status(200).json({ success: true, data: result });
