@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-const connectionString = "mongodb+srv://nj_abaacorp2022:248Ev3rBYUemym4L@cluster0.fbebj.mongodb.net/?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://nj_abaacorp2022:YtFdHqEkYbtub159@nj.hcupmvl.mongodb.net/?retryWrites=true&w=majority"
 const client = new MongoClient(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
