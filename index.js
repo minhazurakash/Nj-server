@@ -8,6 +8,7 @@ const slidersRoutes = require("./routes/v1/sliders.route");
 const blogsRoutes = require("./routes/v1/blogs.route");
 const instagramRoutes = require("./routes/v1/instagrams.route");
 const userRouter = require("./routes/v1/users.route");
+const packageRouter = require("./routes/v1/packages.route");
 
 const app = express();
 const port = 5000;
@@ -34,6 +35,7 @@ app.use("/api/v1/slider", slidersRoutes);
 app.use("/api/v1/blog", blogsRoutes);
 app.use("/api/v1/instagram", instagramRoutes);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/package", packageRouter);
 
 app.all("*", (req, res) => {
   res.send("No route found.");
