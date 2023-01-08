@@ -27,8 +27,9 @@ module.exports.updateSingleUser = async (req, res) => {
   try {
     const db = getDb();
     const user = req.body;
+    const email = user.email;
     const id = user.id;
-    const filter = { _id: ObjectId(id) };
+    const filter = { email: email };
     const options = { upsert: true };
     const updateUser = { $set: user };
     const result = await db
