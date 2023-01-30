@@ -8,6 +8,10 @@ packageRouter
   .get(packagesControllers.getAllPackages)
   .post(packagesControllers.postSinglePackage);
 
-packageRouter.route("/:id").delete(packagesControllers.deleteSinglePackage);
+packageRouter
+  .route("/:id")
+  .get(packagesControllers.getSinglePackage)
+  .delete(packagesControllers.deleteSinglePackage)
+  .put(packagesControllers.updateSinglePackage);
 
 module.exports = packageRouter;
