@@ -10,6 +10,7 @@ const instagramRoutes = require("./routes/v1/instagrams.route");
 const userRouter = require("./routes/v1/users.route");
 const packageRouter = require("./routes/v1/packages.route");
 const orderRouter = require("./routes/v1/orders.route");
+const serviceRouter = require("./routes/v1/services.route");
 
 const app = express();
 const port = 5000;
@@ -38,6 +39,7 @@ app.use("/api/v1/instagram", instagramRoutes);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/package", packageRouter);
 app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/service", serviceRouter);
 
 app.all("*", (req, res) => {
   res.send("No route found.");
